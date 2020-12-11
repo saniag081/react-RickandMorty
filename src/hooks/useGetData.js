@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 
 function useGetData(id) {
-	const API = id ? `https://rickandmortyapi.com/api/character/${id}`: 'https://rickandmortyapi.com/api/character/';
-	const [data, setData] = useState([]);
+	const urlBase = 'https://rickandmortyapi.com/api/character';
+	const API = id ? `${urlBase}/${id}` : urlBase;
+	const [data, setData] = useState(id ? {} : []);
 
 	useEffect(() => {
 		(async function () {
@@ -14,7 +15,7 @@ function useGetData(id) {
 				console.error(err);
 			}
 		})()
-	}, [])
+	}, [id, API])
 	return data;
 }
 

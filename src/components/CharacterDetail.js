@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import useGetData from '../hooks/useGetData';
+import { useDispatch, useSelector } from 'react-redux'
+import { detailCharater } from '../redux/Reducers/todosSlice'
 
 const CharacterDetailStyled = styled.div`
 	.character-detail{
@@ -25,8 +27,11 @@ const CharacterDetailStyled = styled.div`
 `
 
 function CharacterDetail() {
+	const dispatch = useDispatch()
 	const {id} = useParams();
-	const dataCharacter = useGetData(id);
+	const requestDataCharacter = useGetData(id);
+	dispatch(detailCharater(requestDataCharacter))
+	const dataCharacter = useSelector(state => state.detailCharater)
 
 	return (
 		<CharacterDetailStyled>
@@ -40,7 +45,8 @@ function CharacterDetail() {
 					<p>Status: <span>{dataCharacter.status}</span></p>
 					<p>Species: <span>{dataCharacter.species}</span></p>
 					<p>Gender: <span>{dataCharacter.gender}</span></p>
-					{/* <p>Origin: <span>{dataCharacter.origin}</span></p> */}
+					<p>Origin: <span>{ dataCharacter.origin?.name }</span></p>
+					{/* <p>Origin: <span>{ dataCharacter.origin ? dataCharacter.origin.name : '' }</span></p> */}
 					{/* <p>Last Location: <span>{dataCharacter.location.name}</span></p> */}
 				</div>
 			</div>

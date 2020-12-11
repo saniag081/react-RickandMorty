@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Character from './Character';
 import { Link } from 'react-router-dom';
 import useGetData from '../hooks/useGetData';
+import { useSelector, useDispatch } from 'react-redux'
+import { setDataCharaters } from '../redux/Reducers/todosSlice'
 
 const CaruselCharacterStyled = styled.div`
 	.carusel-character{
@@ -14,7 +16,10 @@ const CaruselCharacterStyled = styled.div`
 `
 
 function CaruselCharacter() {
-	const characterList = useGetData();
+	const dispatch = useDispatch()
+	const requetsCharacterList = useGetData();
+	dispatch(setDataCharaters(requetsCharacterList))
+	const characterList = useSelector(state => state.characters)
 	return (
 		<CaruselCharacterStyled>
 			<div className="carusel-character">

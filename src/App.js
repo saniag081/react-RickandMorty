@@ -3,18 +3,24 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './assets/styles/App.css';
 import Home from './containers/Home';
 import Detail from './containers/Detail';
-// import CaruselCharacter from './components/CaruselCharacter';
-// import Header from './components/Header';
+import { configureStore } from '@reduxjs/toolkit'
+import { Provider } from 'react-redux'
+import reducer from './redux/Reducers/todosSlice'
 
+const store = configureStore({
+  reducer: reducer
+})
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/:id" component={Detail} />
-      </Switch>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/:id" component={Detail} />
+        </Switch>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
