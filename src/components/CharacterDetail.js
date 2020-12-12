@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import useGetData from '../hooks/useGetData';
@@ -28,11 +28,13 @@ const CharacterDetailStyled = styled.div`
 
 function CharacterDetail() {
 	const dispatch = useDispatch()
-	const {id} = useParams();
+	const { id } = useParams();
 	const requestDataCharacter = useGetData(id);
-	dispatch(detailCharater(requestDataCharacter))
-	const dataCharacter = useSelector(state => state.detailCharater)
-
+	useEffect(() => {
+		dispatch(detailCharater(requestDataCharacter))
+	})
+	const { dataApi } = useSelector(state => state)
+	const dataCharacter = dataApi.detailCharater
 	return (
 		<CharacterDetailStyled>
 			<div className="character-detail">

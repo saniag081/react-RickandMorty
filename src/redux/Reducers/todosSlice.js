@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const todosSlice = createSlice({
+const dataApi = createSlice({
 	name: 'todos',
 	initialState: {
 		characters: {},
@@ -16,6 +16,6 @@ const todosSlice = createSlice({
 	}
 })
 
-export const { setDataCharaters, detailCharater } = todosSlice.actions
+export const { setDataCharaters, detailCharater } = dataApi.actions
 
-export default todosSlice.reducer
+export default dataApi.reducer

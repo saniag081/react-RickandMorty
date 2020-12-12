@@ -5,10 +5,10 @@ import Home from './containers/Home';
 import Detail from './containers/Detail';
 import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
-import reducer from './redux/Reducers/todosSlice'
+import combineReducers from './redux/Reducers/index'
 
 const store = configureStore({
-  reducer: reducer
+  reducer: combineReducers
 })
 
 function App() {

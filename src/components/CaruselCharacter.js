@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Character from './Character';
 import { Link } from 'react-router-dom';
@@ -18,13 +18,16 @@ const CaruselCharacterStyled = styled.div`
 function CaruselCharacter() {
 	const dispatch = useDispatch()
 	const requetsCharacterList = useGetData();
-	dispatch(setDataCharaters(requetsCharacterList))
-	const characterList = useSelector(state => state.characters)
+	useEffect(() => {
+		dispatch(setDataCharaters(requetsCharacterList))
+	})
+	const { dataApi } = useSelector(state => state)
+
 	return (
 		<CaruselCharacterStyled>
 			<div className="carusel-character">
-				{
-					characterList.map(
+				{dataApi.characters.length > 0 ?
+					dataApi.characters.map(
 						(item) => {
 							return(
 								<Link to={`/${item.id}`} key={item.id}>
@@ -35,7 +38,7 @@ function CaruselCharacter() {
 								</Link>
 							)
 						}
-					)
+					) : []
 				}
 			</div>
 		</CaruselCharacterStyled>
